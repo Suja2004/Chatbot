@@ -4,9 +4,12 @@
         "body-parser": "^1.20.3",
         "cors": "^2.8.5",
         "dialogflow": "^1.2.0",
+        "didyoumean": "^1.2.2",
         "dotenv": "^16.4.5",
         "express": "^4.21.1",
         "fs": "^0.0.1-security",
-        "os": "^0.1.2"
+        "os": "^0.1.2",
+        "socket.io": "^4.8.1",
+        "uuid": "^11.0.3"
     }
 }
