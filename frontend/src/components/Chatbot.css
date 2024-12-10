@@ -1,5 +1,5 @@
 .chatbot-container {
-  max-width: 30%;
+  max-width: 35%;
   height: 95vh;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -8,7 +8,7 @@
   flex-direction: column;
   border: 1px solid #ddd;
   margin: auto;
-  margin-top: 10px;
+  margin-top: 25px;
 }
 
 .header {
@@ -78,10 +78,11 @@
 }
 
 .input-area input {
-  flex: 1;
+  width: 70%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   font-size: 16px;
   outline: none;
   transition: all 0.3s ease;
@@ -96,11 +97,19 @@
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 20px;
   font-size: 16px;
   cursor: pointer;
-  margin-left: 10px;
   transition: background-color 0.3s ease;
+}
+.send{
+  color: #007bff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-right: 10px;
+}
+
+.mic{
+  border-radius: 10px;
 }
 
 .input-area button:hover {
@@ -140,7 +149,8 @@ button:disabled:hover {
   background-color: #ccc;
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width:1024px) {
+
   .chatbot-container{
     max-width: 100%;
   }

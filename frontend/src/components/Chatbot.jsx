@@ -124,10 +124,10 @@ const Chatbot = () => {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyPress={(e) => e.key === "Enter" && handleSend()}
                 />
-                <button onClick={() => handleSend()}>
+                <button className="send" onClick={() => handleSend()}>
                     <FaPaperPlane size={20} />
                 </button>
-                <button onClick={startListening} disabled={isListening}>
+                <button className="mic" onClick={startListening} disabled={isListening}>
                     {isListening ? "..." : <FaMicrophone size={20} />}
                 </button>
             </div>
