@@ -20,7 +20,7 @@ const setupDialogflow = () => {
 
 setupDialogflow();
 
-const projectId = "curious-voice-442807-d0"; // Replace with your Dialogflow project ID
+const projectId = "curious-voice-442807-d0";
 const sessionClient = new dialogflow.SessionsClient();
 
 const detectIntent = async (query) => {

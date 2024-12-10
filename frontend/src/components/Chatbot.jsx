@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import './Chatbot.css';
-import ProfilePage from "./ProfilePage";
+import Navbar from "./Navbar";
 import { FaPaperPlane, FaMicrophone } from 'react-icons/fa';
 
 const Chatbot = () => {
@@ -63,7 +63,7 @@ const Chatbot = () => {
             const response = await axios.post("http://localhost:5000/api/chat", { query: message });
             const botMessage = { sender: "bot", text: response.data.reply };
             setMessages((prevMessages) => [...prevMessages, botMessage]);
-            speakText(response.data.reply); 
+            speakText(response.data.reply);
         } catch (error) {
             const errorMessage = { sender: "bot", text: "Sorry, something went wrong. Try again later." };
             setMessages((prevMessages) => [...prevMessages, errorMessage]);
@@ -87,7 +87,7 @@ const Chatbot = () => {
 
             const voices = window.speechSynthesis.getVoices();
             const soothingVoice = voices.find((voice) => voice.name === "Google US English Female");
-            utterance.voice = voices[47];//f4/17/23/29/37/f45/46/47/
+            utterance.voice = voices[46];//4/17/23/29/f45/46/47/
 
             if (soothingVoice) {
                 console.log(soothingVoice);
@@ -101,34 +101,36 @@ const Chatbot = () => {
     };
 
     return (
-        <div className="home">
-            <div className="chatbot-container">
-                <div className="header">TheraBot</div>
-                <div className="chatbox">
-                    {messages.map((msg, index) => (
-                        <div key={index} className={msg.sender === "user" ? "user-message" : "bot-message"}>
-                            {msg.text}
-                        </div>
-                    ))}
-                    <div ref={chatEndRef} />
+        <div className="chatbot-container">
+            <div className="header">
+                <div className="left">
+                    CalmCare
                 </div>
-                <div className="input-area">
-                    <input
-                        type="text"
-                        placeholder="Type your message..."
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyPress={(e) => e.key === "Enter" && handleSend()}
-                    />
-                    <button onClick={() => handleSend()}>
-                        <FaPaperPlane size={20} />
-                    </button>
-                    <button onClick={startListening} disabled={isListening}>
-                        {isListening ? "Listening..." : <FaMicrophone size={20} />}
-                    </button>
-                </div>
+                <Navbar />
             </div>
-            <ProfilePage />
+            <div className="chatbox">
+                {messages.map((msg, index) => (
+                    <div key={index} className={msg.sender === "user" ? "user-message" : "bot-message"}>
+                        {msg.text}
+                    </div>
+                ))}
+                <div ref={chatEndRef} />
+            </div>
+            <div className="input-area">
+                <input
+                    type="text"
+                    placeholder="Type your message..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={(e) => e.key === "Enter" && handleSend()}
+                />
+                <button onClick={() => handleSend()}>
+                    <FaPaperPlane size={20} />
+                </button>
+                <button onClick={startListening} disabled={isListening}>
+                    {isListening ? "..." : <FaMicrophone size={20} />}
+                </button>
+            </div>
         </div>
     );
 };

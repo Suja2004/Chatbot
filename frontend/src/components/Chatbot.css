@@ -1,29 +1,26 @@
-.home {
-  margin: .4rem 1rem;
-  background-color: #f4f6f9;
-  display: flex;
-  border-radius: 15px;
-}
-
 .chatbot-container {
-  width: 500px;
-  max-width: 450px;
-  height: 90vh;
+  max-width: 30%;
+  height: 95vh;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
   border: 1px solid #ddd;
+  margin: auto;
+  margin-top: 10px;
 }
 
 .header {
   width: 100%;
-  padding: 1rem;
-  text-align: center;
-  font-size: 1.2rem;
+  display: flex;
+  font-size: 1.5rem;
   font-weight: 700;
+  background: #fff;
+}
+
+.left {
+  padding: 1rem;
   color: #3cf;
 }
 
@@ -141,4 +138,10 @@ button:disabled {
 
 button:disabled:hover {
   background-color: #ccc;
+}
+
+@media screen and (max-width:800px) {
+  .chatbot-container{
+    max-width: 100%;
+  }
 }
