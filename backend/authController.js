@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('./models/User'); // Assuming the User schema is in a separate `models/User.js` file
+const User = require('./models/User');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // User Registration
