@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../axiosConfig';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
@@ -10,7 +10,6 @@ const Register = () => {
     const [error, setError] = useState('');
     const [passwordStrength, setPasswordStrength] = useState('');
 
-    // Function to check password strength
     const checkPasswordStrength = (password) => {
         const minLength = password.length >= 8;
         const hasNumber = /\d/.test(password);
@@ -36,7 +35,7 @@ const Register = () => {
 
         try {
             setError('');
-            await axios.post('http://localhost:5000/api/register', { username, password, email });
+            await axiosInstance.post('/register', { username, password, email });
             alert('Registration successful! You can now log in.');
             navigate('/');
         } catch (error) {

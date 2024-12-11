@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosConfig";
 import './Chatbot.css';
 import Navbar from "./Navbar";
 import { FaPaperPlane, FaMicrophone } from 'react-icons/fa';
@@ -60,7 +60,7 @@ const Chatbot = () => {
         setInput("");
 
         try {
-            const response = await axios.post("http://localhost:5000/api/chat", { query: message });
+            const response = await axiosInstance.post("/chat", { query: message });
             const botMessage = { sender: "bot", text: response.data.reply };
             setMessages((prevMessages) => [...prevMessages, botMessage]);
             speakText(response.data.reply);

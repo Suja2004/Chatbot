@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../axiosConfig';
 
 const Login = () => {
     const [usernameOrEmail, setUsernameOrEmail] = useState('');
@@ -12,7 +12,7 @@ const Login = () => {
         e.preventDefault();
         try {
             setError(''); 
-            const response = await axios.post('http://localhost:5000/api/login', { usernameOrEmail, password });
+            const response = await axiosInstance.post('/login', { usernameOrEmail, password });
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('userId', response.data.userId); 
             navigate('/chatbot'); 

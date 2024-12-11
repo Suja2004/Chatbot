@@ -1,0 +1,96 @@
+.userpage-container {
+    max-width: 35%;
+    height: 95vh;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    margin: auto;
+    margin-top: 25px;
+    background-color: #fff;
+}
+
+.user-details {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem 1rem;
+}
+
+.user-icon {
+    text-align: center;
+    width: 100%;
+    padding: 1rem;
+    font-size: 4rem;
+    color: #33ffe4;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-display {
+    width: 100%;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    margin: 1rem;
+}
+
+.details-display p {
+    margin: .7rem 0;
+    padding: .6rem;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.details-display p:hover {
+    background: #33ffe4;
+}
+
+.edit-form {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 10px 0;
+}
+
+.edit-form input,
+.edit-form select {
+    width: 100%;
+    padding: .7rem;
+    margin: 0 0 .5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+input:focus,
+select:focus {
+    border-color: #007bff;
+}
+
+.edit-button,
+.save-button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-button:hover,
+.save-button:hover {
+    background-color: #0056b3;
+}
+
+@media screen and (max-width: 1024px) {
+    .userpage-container {
+        max-width: 100%;
+    }
+}

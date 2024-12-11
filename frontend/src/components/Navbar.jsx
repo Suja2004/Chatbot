@@ -30,17 +30,17 @@ const Navbar = () => {
     }, []);
 
     const handleLogoutClick = () => {
-        setShowLogoutModal(true); // Show the confirmation popup
+        setShowLogoutModal(true);
     };
 
     const handleLogout = () => {
         localStorage.clear();
         navigate('/');
-        setShowLogoutModal(false); // Close the modal after logout
+        setShowLogoutModal(false);
     };
 
     const handleCancelLogout = () => {
-        setShowLogoutModal(false); // Close the modal without logging out
+        setShowLogoutModal(false);
     };
 
     return (
@@ -52,15 +52,15 @@ const Navbar = () => {
             </div>
             <nav className={`menu ${isOpen ? "open" : ""}`}>
                 <Link className="links" to="/chatbot">Home</Link>
-                <Link className="links" to="/chatbot">About</Link>
-                <Link className="links" to="/chatbot">Services</Link>
+                <Link className="links" to="/severity">Assess</Link>
+                <Link className="links" to="/user">User</Link>
                 <Link className="links" onClick={handleLogoutClick}>LogOut</Link>
             </nav>
 
             {showLogoutModal && (
                 <div className="logout-modal">
                     <div className="modal-content">
-                        <p>Are you sure you want to log out?</p>
+                        <p>Are you sure you want to <br />log out?</p>
                         <button className="logbtn yes" onClick={handleLogout}>Yes</button>
                         <button className="logbtn no" onClick={handleCancelLogout}>No</button>
                     </div>

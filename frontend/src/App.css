@@ -35,12 +35,14 @@ body {
 
 .navbar {
   position: absolute;
-  width: 15.7%;
-  left: 49.3%;
+  width: 18.2%;
+  left: 59.3%;
   transition: all 0.3s ease;
+  z-index: 100;
 }
 
 .navbar.open {
+  left: 49.3%;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   background: #33ccff8a;
@@ -62,7 +64,6 @@ body {
   border-bottom-right-radius: 15px;
 }
 
-/* Link Styling */
 a {
   padding: 1rem;
   color: #fff;
@@ -74,9 +75,8 @@ a:hover {
   color: #3381ff;
 }
 
-/* Hamburger Icon */
 .hamburger {
-  width: 80%;
+  width: 10%;
   display: flex;
   cursor: pointer;
   flex-direction: column;
@@ -243,7 +243,7 @@ a:hover {
 
 .modal-content {
   background: white;
-  padding: 20px;
+  padding: 2.5rem;
   border-radius: 10px;
   text-align: center;
   width: 300px;
@@ -258,20 +258,27 @@ a:hover {
   margin: 10px;
   border: none;
   cursor: pointer;
-  color: #fff;
+  font-size: 1rem;
+  background: none;
+  font-weight: bold;
 }
 
-.yes {
-  background-color: #f6485a;
+.yes{
+  color: #ff283d;
 }
 
-.no {
-  background-color: #87f65e;
+.no{
+  color: #3cf;
 }
 
 
 @media screen and (max-width:800px) {
-  .navbar{
+  .navbar {
     width: 50.7%;
+    margin-left: 25%;
+
+  }
+  .navbar.open{
+    margin-left: 0;
   }
 }
