@@ -3,7 +3,6 @@
     height: 95vh;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     border: 1px solid #ddd;
@@ -19,6 +18,8 @@
     align-items: center;
     flex-direction: column;
     padding: 1rem 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .user-icon {
@@ -89,8 +90,100 @@ select:focus {
     background-color: #0056b3;
 }
 
+
+
+.link {
+    border: 0;
+    padding: 0;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    width: 90%;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000;
+    text-align: center;
+}
+
+.popup p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+}
+
+.popup-buttons button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-buttons button:hover {
+    background-color: #0056b3;
+}
+
+
+.severity-chart-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chart-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.control-btn {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.control-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.control-btn:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.chart {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
 @media screen and (max-width: 1024px) {
     .userpage-container {
-        max-width: 100%;
+        min-width: 100%;
+        height: 100vh;
+        margin: 0;
     }
 }

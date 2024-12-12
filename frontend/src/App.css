@@ -263,22 +263,23 @@ a:hover {
   font-weight: bold;
 }
 
-.yes{
+.yes {
   color: #ff283d;
 }
 
-.no{
+.no {
   color: #3cf;
 }
 
 
-@media screen and (max-width:800px) {
+@media screen and (max-width:1024px) {
   .navbar {
-    width: 50.7%;
+    width: 0;
     margin-left: 25%;
-
   }
-  .navbar.open{
+
+  .navbar.open {
+    width: 50%;
     margin-left: 0;
   }
 }

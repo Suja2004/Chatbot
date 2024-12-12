@@ -51,9 +51,9 @@ const Navbar = () => {
                 <div className="line"></div>
             </div>
             <nav className={`menu ${isOpen ? "open" : ""}`}>
-                <Link className="links" to="/chatbot">Home</Link>
+                <Link className="links" to="/user">Home</Link>
                 <Link className="links" to="/severity">Assess</Link>
-                <Link className="links" to="/user">User</Link>
+                <Link className="links" to="/chatbot">Chatbot</Link>
                 <Link className="links" onClick={handleLogoutClick}>LogOut</Link>
             </nav>
 

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import './Severity.css';
 import Navbar from "./Navbar";
+import axiosInstance from "../axiosConfig";
 
 const Severity = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [responses, setResponses] = useState(Array(10).fill(1));
     const [severity, setSeverity] = useState(null);
     const [error, setError] = useState(null);
-
+    const [severityLevel, setSeverityLevel] = useState(null);
     const questions = [
         "On a scale of 1 to 10, how severe are unwanted or disturbing memories of a traumatic event?",
         "On a scale of 1 to 10, how severe are upsetting dreams related to a traumatic event?",
@@ -45,19 +46,25 @@ const Severity = () => {
         try {
             const totalScore = responses.reduce((acc, val) => acc + val, 0);
             setSeverity(totalScore);
+            const userId = localStorage.getItem('userId');
+            const token = localStorage.getItem('token');
 
-            await axios.post("http://localhost:3000/predict", {
+            const response = await axios.post("http://localhost:3000/predict", {
                 responses: responses,
             });
+            const predictedSeverityLevel = response.data.severity;
+            setSeverityLevel(predictedSeverityLevel);
+
+            await axiosInstance.post(`/user/${userId}/severity`, {
+                severityScore: totalScore,
+                severityLevel: predictedSeverityLevel,
+            },
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
         } catch (err) {
             setError("An error occurred while calculating severity. Please try again.");
         }
-    };
-
-    const severityLevel = () => {
-        if (severity <= 33) return "Mild";
-        if (severity <= 56) return "Moderate";
-        return "Severe";
     };
 
     const pointerRotation = severity ? (severity / 100 * 180) + (-90) : 0;
@@ -72,7 +79,7 @@ const Severity = () => {
             </h1>
             {severity !== null ? (
                 <div className="severity-result">
-                    <h2>Predicted Severity: {severityLevel()} </h2>
+                    <h2>Predicted Severity: {severityLevel} </h2>
                     <div className="semicircle-meter">
                         <div className="labels">
                             <span>Mild</span>

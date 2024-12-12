@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import './UserPage.css';
+import { Link } from "react-router-dom";
+import SeverityChart from "./SeverityChart";
+import './Userpage.css';
 import Navbar from "./Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -9,14 +11,16 @@ const UserPage = () => {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isFetching, setIsFetching] = useState(true);
+    const [showPopup, setShowPopup] = useState(false);
     const [userDetails, setUserDetails] = useState({
         username: '',
         email: '',
         age: 0,
         gender: 'Male',
         frequency: 'Weekly',
+        nextQuizDate: ''
     });
-
+    const [severityHistory, setSeverityHistory] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
     const [nextQuizDate, setNextQuizDate] = useState('');
 
@@ -27,19 +31,37 @@ const UserPage = () => {
                 const userId = localStorage.getItem('userId');
                 const token = localStorage.getItem('token');
 
+                if (!userId || !token) {
+                    handleError('User not authenticated. Please log in again.');
+                    return;
+                }
+
                 const response = await axiosInstance.get(`/user/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                setUserDetails(response.data);
-                setNextQuizDate(calculateNextDate(response.data.frequency));
+
+                const { user, nextQuizDate } = response.data;
+                setUserDetails(user);
+
+                setSeverityHistory(user.severityHistory || []);
+                if (nextQuizDate && nextQuizDate !== 'No previous assessments') {
+                    const formattedDate = new Date(nextQuizDate).toLocaleDateString();
+                    setNextQuizDate(formattedDate);
+
+                    if (new Date(nextQuizDate).toDateString() === new Date().toDateString()) {
+                        setShowPopup(true);
+                    }
+                } else {
+                    setNextQuizDate('No previous assessments');
+                    setShowPopup(true);
+                }
             } catch (error) {
                 handleError('Error fetching user details.');
-                console.error(error);
+                console.error('Fetch error:', error);
             } finally {
                 setIsFetching(false);
             }
         };
-
         fetchUserDetails();
     }, []);
 
@@ -51,13 +73,13 @@ const UserPage = () => {
         setIsLoading(true);
 
         try {
-            const userId = localStorage.getItem('userId');
             const token = localStorage.getItem('token');
 
-            if (!userId || !token) {
+            if (!token) {
                 handleError('User is not authenticated. Please log in again.');
                 return;
             }
+
             const response = await axiosInstance.put(
                 "/user",
                 userDetails,
@@ -67,6 +89,9 @@ const UserPage = () => {
             );
 
             if (response.status === 200) {
+                const updatedUser = response.data.user;
+                setUserDetails(updatedUser);
+                setNextQuizDate(new Date(response.data.user.nextQuizDate).toLocaleDateString());
                 handleError('Profile updated successfully!');
             } else {
                 handleError('Failed to update profile. Please try again later.');
@@ -79,8 +104,6 @@ const UserPage = () => {
             setIsLoading(false);
             setIsEditing(false);
         }
-
-        setNextQuizDate(calculateNextDate(userDetails.frequency));
     };
 
     const handleChange = (field, value) => {
@@ -99,28 +122,20 @@ const UserPage = () => {
         }
     };
 
-    function calculateNextDate(frequency) {
-        const today = new Date();
-        let daysToAdd;
-        switch (frequency) {
-            case "Weekly":
-                daysToAdd = 7;
-                break;
-            case "Bi-Weekly":
-                daysToAdd = 14;
-                break;
-            case "Monthly":
-                daysToAdd = 30;
-                break;
-            default:
-                daysToAdd = 7;
-        }
-        const nextDate = new Date(today.setDate(today.getDate() + daysToAdd));
-        return nextDate.toDateString();
-    }
+    const closePopup = () => setShowPopup(false);
 
     if (isFetching) {
-        return <div className="userpage-container user-details">Loading user details...</div>;
+        return (
+            <div className="userpage-container">
+                <h1 className="header">
+                    <div className="left">CalmCare</div>
+                    <Navbar />
+                </h1>
+                <div className="user-details">
+                    Loading user details...
+                </div>
+            </div>
+        );
     }
 
     return (
@@ -135,7 +150,6 @@ const UserPage = () => {
                         <FontAwesomeIcon icon={faUser} />
                     </h2>
                 </div>
-                {error && <p className="error">{error}</p>}
                 {isEditing ? (
                     <div className="edit-form">
                         <label>
@@ -192,7 +206,7 @@ const UserPage = () => {
                     </div>
                 ) : (
                     <div className="details-display">
-                        <p>Username: {userDetails.username}</p>
+                        <p>Name: {userDetails.username}</p>
                         <p>Email: {userDetails.email}</p>
                         <p>Age: {userDetails.age}</p>
                         <p>Gender: {userDetails.gender}</p>
@@ -203,7 +217,42 @@ const UserPage = () => {
                         </button>
                     </div>
                 )}
+                <div className="userpage-container">
+                    {severityHistory.length > 0 ? (
+                        <SeverityChart severityHistoryArray={severityHistory} />
+                    ) : (
+                        <div className="user-details">No severity history available.</div>
+                    )}
+                </div>
             </div>
+
+            {error && (
+                <>
+                    <div className="popup-overlay"></div>
+                    <div className="popup">
+                        <p>{error}</p>
+                        <div className="popup-buttons">
+                            <button onClick={() => setError('')}>Close</button>
+                        </div>
+                    </div>
+                </>
+            )}
+
+            {showPopup && (
+                <div className="popup">
+                    <p>
+                        {nextQuizDate === 'No previous assessments'
+                            ? "You haven't taken an assessment yet. Would you like to take one now?"
+                            : "It's time for your next assessment. Would you like to proceed?"}
+                    </p>
+                    <div className="popup-buttons">
+                        <Link className="link" to="/severity">
+                            <button>Yes</button>
+                        </Link>
+                        <button onClick={closePopup}>No</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

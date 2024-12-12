@@ -15,7 +15,7 @@ const Login = () => {
             const response = await axiosInstance.post('/login', { usernameOrEmail, password });
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('userId', response.data.userId); 
-            navigate('/chatbot'); 
+            navigate('/user'); 
         } catch (error) {
             if (error.response) {
                 setError(error.response.data.message); 
