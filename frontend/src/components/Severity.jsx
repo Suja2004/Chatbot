@@ -55,7 +55,7 @@ const Severity = () => {
             const userId = localStorage.getItem('userId');
             const token = localStorage.getItem('token');
 
-            const response = await axios.post("http://localhost:3000/predict", {
+            const response = await axios.post("https://severityserver.onrender.com/predict", {
                 responses: responses,
             });
 
