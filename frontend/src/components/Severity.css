@@ -17,9 +17,27 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     padding: 50px;
     overflow-y: auto;
     background-color: #f9f9f9;
+}
+
+.response-options {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.response-button {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.response-button.selected {
+    background-color: #3cf;
+    color: white;
 }
 
 .severity-result {
@@ -151,6 +169,45 @@
     margin-top: 15px;
     font-size: 0.9rem;
     text-align: center;
+}
+
+.severity-description {
+    margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+    padding: 1rem;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.severity-description p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.severity-description p strong {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.severity-description div {
+    background-color: #f1f1f1;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.severity-description .mild {
+    color: #27ae60;
+}
+
+.severity-description .moderate {
+    color: #f39c12;
+}
+
+.severity-description .severe {
+    color: #e74c3c;
 }
 
 @media screen and (max-width: 1024px) {
