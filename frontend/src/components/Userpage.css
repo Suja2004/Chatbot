@@ -75,7 +75,8 @@ select:focus {
 }
 
 .edit-button,
-.save-button {
+.save-button,
+.attempt-button {
     padding: 10px 20px;
     margin-top: 10px;
     background-color: #007bff;
@@ -86,11 +87,14 @@ select:focus {
 }
 
 .edit-button:hover,
-.save-button:hover {
+.save-button:hover,
+.attempt-button:hover {
     background-color: #0056b3;
 }
 
-
+.attempt-button{
+    margin-left: 1.5rem;
+}
 
 .link {
     border: 0;
@@ -141,6 +145,9 @@ select:focus {
     background-color: #0056b3;
 }
 
+.chart-container{
+    width: 100%;
+}
 
 .severity-chart-container {
     padding: 20px;

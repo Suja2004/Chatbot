@@ -92,7 +92,20 @@ const UserPage = () => {
                 const updatedUser = response.data.user;
                 setUserDetails(updatedUser);
                 setNextQuizDate(new Date(response.data.user.nextQuizDate).toLocaleDateString());
+                const [day, month, year] = nextQuizDate.split('/');
+
+                const formattedDate = new Date(`${year}-${month}-${day}`);
+                const formattedDateString = formattedDate.toLocaleDateString('en-GB');
+
+                console.log(formattedDateString);
+                if (formattedDateString === "Invalid Date") {
+                    setNextQuizDate('No previous assessments');
+
+                } else {
+                    setNextQuizDate(formattedDateString);
+                }
                 handleError('Profile updated successfully!');
+
             } else {
                 handleError('Failed to update profile. Please try again later.');
             }
@@ -211,13 +224,19 @@ const UserPage = () => {
                         <p>Age: {userDetails.age}</p>
                         <p>Gender: {userDetails.gender}</p>
                         <p>Assessment Frequency: {userDetails.frequency}</p>
-                        <p>Next Assessment Date: {nextQuizDate}</p>
+                        <p>Next Assessment Date: {nextQuizDate}
+                            {nextQuizDate === 'No previous assessments'
+                                ? <Link className="link" to="/severity">
+                                    <button className="attempt-button">Attempt</button>
+                                </Link> : ""}
+                        </p>
+
                         <button className="edit-button" onClick={handleEdit}>
                             Edit
                         </button>
                     </div>
                 )}
-                <div className="userpage-container">
+                <div className="chart-container">
                     {severityHistory.length > 0 ? (
                         <SeverityChart severityHistoryArray={severityHistory} />
                     ) : (
@@ -225,7 +244,6 @@ const UserPage = () => {
                     )}
                 </div>
             </div>
-
             {error && (
                 <>
                     <div className="popup-overlay"></div>

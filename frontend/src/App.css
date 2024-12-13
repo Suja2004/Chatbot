@@ -194,7 +194,7 @@ a:hover {
 }
 
 .auth-form button:focus {
-  box-shadow: 0 0 15px rgba(51, 204, 255, 0.8);
+  box-shadow: 0 0 15px #33ccffcc;
 }
 
 .link {
@@ -281,5 +281,7 @@ a:hover {
   .navbar.open {
     width: 50%;
     margin-left: 0;
+    height: 100vh;
+    background: #33ccff8a;
   }
 }

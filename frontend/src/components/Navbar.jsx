@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [showLogoutModal, setShowLogoutModal] = useState(false); // State for showing the logout confirmation
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const navbarRef = useRef(null);
     const navigate = useNavigate();
 
@@ -11,7 +11,6 @@ const Navbar = () => {
         setIsOpen(!isOpen);
     };
 
-    // Close menu on click/touch outside
     useEffect(() => {
         const handleOutsideClick = (event) => {
             if (navbarRef.current && !navbarRef.current.contains(event.target)) {
@@ -22,7 +21,6 @@ const Navbar = () => {
         document.addEventListener("click", handleOutsideClick);
         document.addEventListener("touchstart", handleOutsideClick);
 
-        // Cleanup the event listeners on unmount
         return () => {
             document.removeEventListener("click", handleOutsideClick);
             document.removeEventListener("touchstart", handleOutsideClick);
@@ -52,8 +50,8 @@ const Navbar = () => {
             </div>
             <nav className={`menu ${isOpen ? "open" : ""}`}>
                 <Link className="links" to="/user">Home</Link>
-                <Link className="links" to="/severity">Assess</Link>
                 <Link className="links" to="/chatbot">Chatbot</Link>
+                <Link className="links" to="/therapy">Therapies</Link>
                 <Link className="links" onClick={handleLogoutClick}>LogOut</Link>
             </nav>
 

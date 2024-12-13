@@ -90,7 +90,6 @@ const Chatbot = () => {
             utterance.voice = voices[46];//4/17/23/29/f45/46/47/
 
             if (soothingVoice) {
-                console.log(soothingVoice);
                 utterance.voice = soothingVoice;
             }
 

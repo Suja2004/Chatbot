@@ -6,7 +6,7 @@ import axiosInstance from "../axiosConfig";
 
 const Severity = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [responses, setResponses] = useState(Array(10).fill(1));
+    const [responses, setResponses] = useState(Array(10));
     const [severity, setSeverity] = useState(null);
     const [error, setError] = useState(null);
     const [severityLevel, setSeverityLevel] = useState(null);
@@ -27,9 +27,14 @@ const Severity = () => {
         const updatedResponses = [...responses];
         updatedResponses[currentQuestionIndex] = parseInt(value, 10);
         setResponses(updatedResponses);
+        setError("");
     };
 
     const handleNext = () => {
+        if (!responses[currentQuestionIndex]) {
+            setError("Please provide an answer before proceeding.");
+            return;
+        }
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
         }
@@ -43,6 +48,10 @@ const Severity = () => {
 
     const handleSubmit = async () => {
         setError(null);
+        if (!responses[currentQuestionIndex]) {
+            setError("Please provide an answer before submitting.");
+            return;
+        }
         try {
             const totalScore = responses.reduce((acc, val) => acc + val, 0);
             setSeverity(totalScore);
@@ -108,6 +117,7 @@ const Severity = () => {
                             value={responses[currentQuestionIndex] || ""}
                             onChange={(e) => handleResponseChange(e.target.value)}
                             placeholder="1 - 10"
+                            required
                         />
                     </div>
                     <div className="navigation-buttons">
@@ -128,9 +138,10 @@ const Severity = () => {
                             </button>
                         )}
                     </div>
+                    {error && <p className="error">{error}</p>}
+
                 </div>
             )}
-            {error && <p className="error">{error}</p>}
         </div>
     );
 };
