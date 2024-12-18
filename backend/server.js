@@ -12,7 +12,23 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET;
 
-app.use(cors());
+const corsOptions = {
+    origin: (origin, callback) => {
+        const allowedOrigins = [
+            'https://calmcare.netlify.app', 
+            'https://mental-health-chatbot-zeta.vercel.app'
+        ];
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 mongoose.connect(process.env.MONGODB_URI, {
